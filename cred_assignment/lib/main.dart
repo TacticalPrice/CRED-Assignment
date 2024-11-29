@@ -18,8 +18,8 @@ class PersistentBottomSheets extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => TestMintCubit(getIt<TestMintRepository>())
-            ..fetchTestMintData(),
+          create: (context) => DataCubit(getIt<TestMintRepository>())
+            ..fetchData(),
         ),
         BlocProvider(create: (context) => HomeCubit()),
       ],

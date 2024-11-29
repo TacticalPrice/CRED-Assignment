@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 
 
 @immutable
-abstract class TestMintState {}
+abstract class ApiDataState {}
 
 
-class TestMintInitial extends TestMintState {}
+class ApiDataInitial extends ApiDataState {}
 
 
-class TestMintLoading extends TestMintState {}
+class ApiDataLoading extends ApiDataState {}
 
 
-class TestMintSuccess extends TestMintState {
+class ApiDataSuccess extends ApiDataState {
  final Map<String, dynamic> data;
 
 
- TestMintSuccess(this.data);
+ ApiDataSuccess(this.data);
 }
 
 
-class TestMintError extends TestMintState {
+class ApiDataError extends ApiDataState {
  final String message;
 
 
- TestMintError(this.message);
+ ApiDataError(this.message);
 }

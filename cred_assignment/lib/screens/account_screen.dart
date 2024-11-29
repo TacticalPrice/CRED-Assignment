@@ -22,19 +22,15 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AccountCubit(),
-      child: BlocBuilder<TestMintCubit, TestMintState>(
+      child: BlocBuilder<DataCubit, ApiDataState>(
         builder: (context, state) {
-          if (state is TestMintLoading) {
+          if (state is ApiDataLoading) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (state is TestMintSuccess) {
+          if (state is ApiDataSuccess) {
             final List<dynamic> accounts = state.data['items'][2]['open_state']['body']['items'];
-            //context.read<AccountCubit>().setAccounts(accounts);
 
             return Center(
-              // child: Container(
-              //   color: const Color.fromARGB(255, 31, 31, 35), // Dark background
-              //   padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -49,7 +45,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 12),
                     BlocBuilder<AccountCubit, AccountState>(
                       builder: (context, state) {
                         return Column(
@@ -123,11 +119,9 @@ class _AccountScreenState extends State<AccountScreen> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
-                          // Handle account change
-                          final selectedAccount = context.read<AccountCubit>().state.selectedAccount;
-                          if (selectedAccount.isNotEmpty) {
-                            // Process with the selected account
-                          }
+                          // final selectedAccount = context.read<AccountCubit>().state.selectedAccount;
+                          // if (selectedAccount.isNotEmpty) {
+                          // }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF3A3A3C),
@@ -147,13 +141,12 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                     ),
                   ],
-                //),
               ),
             );
           } else {
             return const Center(
               child: Text(
-                'Unknown Error',
+                'Unexpected Error',
                 style: TextStyle(color: Colors.white),
               ),
             );

@@ -15,14 +15,12 @@ class DioService {
    _dio.interceptors.add(
      InterceptorsWrapper(
        onRequest: (options, handler) async {
-         return handler.next(options); // continue
+         return handler.next(options); 
        },
        onResponse: (response, handler) {
-         // Do something with the response data if needed
-         return handler.next(response); // continue
+         return handler.next(response); 
        },
        onError: (DioException error, handler) {
-         // Handle errors
          if (error.response != null) {
            switch (error.response!.statusCode) {
              case 400:
@@ -40,7 +38,7 @@ class DioService {
          } else {
            print('Unexpected error: ${error.message}');
          }
-         return handler.next(error); // continue
+         return handler.next(error);
        },
      ),
    );

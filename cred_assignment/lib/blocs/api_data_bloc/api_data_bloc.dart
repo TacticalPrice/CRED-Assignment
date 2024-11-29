@@ -4,20 +4,20 @@ import 'package:cred_assignment/domain/repo.dart';
 import 'package:meta/meta.dart';
 
 
-class TestMintCubit extends Cubit<TestMintState> {
+class DataCubit extends Cubit<ApiDataState> {
  final TestMintRepository _repository;
 
 
- TestMintCubit(this._repository) : super(TestMintInitial());
+ DataCubit(this._repository) : super(ApiDataInitial());
 
 
- Future<void> fetchTestMintData() async {
-   emit(TestMintLoading());
+ Future<void> fetchData() async {
+   emit(ApiDataLoading());
    try {
      final data = await _repository.fetchTestMintData();
-     emit(TestMintSuccess(data));
+     emit(ApiDataSuccess(data));
    } catch (e) {
-     emit(TestMintError(e.toString()));
+     emit(ApiDataError(e.toString()));
    }
  }
 }

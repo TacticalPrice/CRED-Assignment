@@ -19,14 +19,14 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => CardSelectionCubit(),
-      child: BlocBuilder<TestMintCubit, TestMintState>(
+      child: BlocBuilder<DataCubit, ApiDataState>(
         builder: (context, state) {
-          if (state is TestMintLoading) {
+          if (state is ApiDataLoading) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
-          if (state is TestMintSuccess) {
+          if (state is ApiDataSuccess) {
             final data = state.data['items'][1]['open_state'];
             return Center(
               //color: Colors.black,
@@ -146,7 +146,6 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        // Handle "Create your own plan" action
                       },
                       child: Text(
                         "Create your own plan",
@@ -160,7 +159,7 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
           } else {
             return Center(
               child: Text(
-                'Unknown State',
+                'Unexpected error',
                 style: TextStyle(color: Colors.white),
               ),
             );

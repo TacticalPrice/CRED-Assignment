@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget _buildBottomSheet(BuildContext context, int index) {
+Widget _buildBottomSheet(BuildContext context, int index) {
   double heightFactor = _viewModel.heights[index];
   double opacity = _viewModel.getOpacity(index);
 
@@ -83,9 +83,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   ];
 
   List<Color> sheetColors = [
-    Color(0xFF18181B), 
-    Color(0Xff27272a), 
-    Color(0xFF18181B), 
+    Color(0xFF18181B),
+    Color(0Xff27272a),
+    Color(0xFF18181B),
   ];
 
   return AnimatedPositioned(
@@ -101,15 +101,25 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       opacity: opacity,
       child: Container(
         decoration: BoxDecoration(
-          color: sheetColors[index], // Apply color based on the index
+          color: sheetColors[index],
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(24),
             topRight: Radius.circular(24),
           ),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            // Add the d
+            IconButton(
+              icon: Icon(
+                Icons.arrow_downward_sharp,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                context.read<HomeCubit>().removeTopSheet();
+              },
+            ),
             Expanded(child: StackContent(index: index)),
             GestureDetector(
               onTap: () => context.read<HomeCubit>().addBottomSheet(),
@@ -124,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 ),
                 child: Center(
                   child: Text(
-                    buttonTexts[index], 
+                    buttonTexts[index],
                     style: const TextStyle(fontSize: 18, color: Colors.white70),
                   ),
                 ),
@@ -136,6 +146,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     ),
   );
 }
+
 
 @override
 Widget build(BuildContext context) {
@@ -194,118 +205,4 @@ Widget build(BuildContext context) {
 }
 }
 
-//   Widget _buildBottomSheet(BuildContext context, int index) {
-//     double heightFactor = _viewModel.heights[index];
-//     double opacity = _viewModel.getOpacity(index);
 
-//     // Define the list of button texts for each index
-//     List<String> buttonTexts = [
-//       'Proceed to EMI Selection',
-//       'Select your bank account',
-//       'Tap for 1-click KYC',
-//     ];
-
-//     return AnimatedPositioned(
-//       duration: const Duration(milliseconds: 300),
-//       curve: Curves.easeInOut,
-//       bottom: 0,
-//       top: MediaQuery.of(context).size.height *
-//           (_viewModel.animatingIndex == index ? 1 : 1 - heightFactor),
-//       left: 0,
-//       right: 0,
-//       child: AnimatedOpacity(
-//         duration: const Duration(milliseconds: 300),
-//         opacity: opacity,
-//         child: Container(
-//           decoration: BoxDecoration(
-//             color: Colors.black,
-//             borderRadius:
-//                 const BorderRadius.only(
-//                     topLeft: Radius.circular(24),
-//                     topRight: Radius.circular(24),
-//                   )
-//           ),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Expanded(child: StackContent(index: index)),
-//               GestureDetector(
-//                 onTap: () => context.read<HomeCubit>().addBottomSheet(),
-//                 child: Container(
-//                   height: 80,
-//                   decoration: BoxDecoration(
-//                     color: Colors.blue[900],
-//                     borderRadius: const BorderRadius.only(
-//                       topLeft: Radius.circular(40),
-//                       topRight: Radius.circular(40),
-//                     ),
-//                   ),
-//                   child: Center(
-//                     child: Text(
-//                       buttonTexts[index], // Get the text from the list based on the index
-//                       style: const TextStyle(fontSize: 18, color: Colors.white70),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return WillPopScope(
-//       onWillPop: () async {
-//         if (context.read<HomeCubit>().state.openedSheets.isNotEmpty) {
-//           context.read<HomeCubit>().removeTopSheet();
-//           return false;
-//         }
-//         return true;
-//       },
-//       child: Scaffold(
-//         appBar: AppBar(
-//           title: const Text("Home"),
-//           centerTitle: true,
-//         ),
-//         body: Stack(
-//           children: [
-//             Center(child: _buildWelcomeSection()),
-//             Align(
-//               alignment: Alignment.bottomCenter,
-//               child: Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: ElevatedButton(
-//                   onPressed: () => context.read<HomeCubit>().addBottomSheet(),
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: Colors.green,
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(20),
-//                     ),
-//                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-//                   ),
-//                   child: const Text(
-//                     "Start Exploring",
-//                     style: TextStyle(fontSize: 18, color: Colors.white),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             BlocBuilder<HomeCubit, HomeState>(
-//               builder: (context, state) {
-//                 return Stack(
-//                   children: [
-//                     for (int index in state.openedSheets)
-//                       _buildBottomSheet(context, index),
-//                   ],
-//                 );
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

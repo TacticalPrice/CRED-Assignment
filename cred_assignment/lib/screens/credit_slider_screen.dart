@@ -24,11 +24,11 @@ class _CreditSliderScreenState extends State<CreditSliderScreen> {
       providers: [
         BlocProvider(create: (_) => SliderCubit()),
       ],
-      child: BlocBuilder<TestMintCubit, TestMintState>(
+      child: BlocBuilder<DataCubit, ApiDataState>(
         builder: (context, state) {
-          if (state is TestMintLoading) {
+          if (state is ApiDataLoading) {
             return Center(child: CircularProgressIndicator());
-          } else if (state is TestMintSuccess) {
+          } else if (state is ApiDataSuccess) {
             final data = state.data['items']?[0]?['open_state'];
             final title = data?['body']?['title'] ?? "How much do you need?";
             final subtitle = data?['body']?['subtitle'];
@@ -49,9 +49,9 @@ class _CreditSliderScreenState extends State<CreditSliderScreen> {
                       style: TextStyle(color: Colors.grey, fontSize: 14),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: 12),
                     Container(
-                      height: 400,
+                      height: 380,
                       width : 400,
                       decoration: BoxDecoration(
                          color: Colors.white,
@@ -117,7 +117,7 @@ class _CreditSliderScreenState extends State<CreditSliderScreen> {
                 ),
               ),
             );
-          } else if (state is TestMintError) {
+          } else if (state is ApiDataError) {
             return Center(
               child: Text(
                 "Failed to load data. Please try again.",
@@ -125,7 +125,7 @@ class _CreditSliderScreenState extends State<CreditSliderScreen> {
               ),
             );
           } else {
-            return Center(child: Text("Unknown state."));
+            return Center(child: Text("Unexpected error."));
           }
         },
       ),
