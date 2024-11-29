@@ -28,14 +28,17 @@ class _CardSelectionScreenState extends State<CardSelectionScreen> {
           }
           if (state is TestMintSuccess) {
             final data = state.data['items'][1]['open_state'];
-            return Container(
-              color: Colors.black,
+            return Center(
+              //color: Colors.black,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    data['body']['title'],
-                    style: TextStyle(color: Colors.white),
+                  Padding(
+                    padding: const EdgeInsets.only(left : 20.0 , top: 12),
+                    child: Text(
+                      data['body']['title'],
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
