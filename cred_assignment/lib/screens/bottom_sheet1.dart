@@ -128,7 +128,7 @@ class _CreditSliderScreenState extends State<CreditSliderScreen> {
 
  @override
  void initState() {
-   context.read<TestMintCubit>().fetchTestMintData();
+   //context.read<TestMintCubit>().fetchTestMintData();
    // TODO: implement initState
    super.initState();
  }
@@ -190,7 +190,7 @@ class _CreditSliderScreenState extends State<CreditSliderScreen> {
                                  ),
                                  SizedBox(height: 4),
                                  Text(
-                                   '@1.04% monthly',
+                                   data['items']?[0]?['open_state']?['body']?['card']['description']?? "hello",
                                    style: TextStyle(
                                      color: Colors.green,
                                      fontSize: 16,
@@ -213,7 +213,7 @@ class _CreditSliderScreenState extends State<CreditSliderScreen> {
                                dotColor: Colors.orange,
                              ),
                            ),
-                           min: 0,
+                           min: 500,
                            max: maxAmount,
                            initialValue: selectedAmount,
                            onChange: (double value) {
@@ -224,7 +224,7 @@ class _CreditSliderScreenState extends State<CreditSliderScreen> {
                      ),
                      SizedBox(height: 40),
                      Text(
-                       "Stash is instant. Money will be credited within seconds.",
+                       data['items']?[0]?['open_state']?['footer'] ?? "hello",
                        style: TextStyle(color: Colors.grey, fontSize: 14),
                        textAlign: TextAlign.center,
                      ),
