@@ -1,4 +1,4 @@
-import 'package:cred_assignment/blocs/amount_cubit.dart';
+import 'package:cred_assignment/blocs/account_cubit.dart';
 import 'package:cred_assignment/blocs/api_data_bloc/api_data_bloc.dart';
 import 'package:cred_assignment/blocs/api_data_bloc/api_data_state.dart';
 import 'package:flutter/material.dart';
@@ -21,27 +21,25 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AccountCubit(),
-      child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 31, 31, 35), // Dark background
-        body: BlocBuilder<TestMintCubit, TestMintState>(
-          builder: (context, state) {
-            if(state is TestMintLoading)
-            {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if(state is TestMintSuccess){
-               final data = state.data['items'][2]['open_state'];
+      child: BlocBuilder<TestMintCubit, TestMintState>(
+        builder: (context, state) {
+          if (state is TestMintLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is TestMintSuccess) {
+            final data = state.data['items'][2]['open_state'];
             return SafeArea(
-              child: Padding(
+              child: Container(
+                color: const Color.fromARGB(255, 31, 31, 35), // Dark background
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       data['body']?['title'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -50,7 +48,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     const SizedBox(height: 8),
                     Text(
                       data['body']?['subtitle'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white60,
                         fontSize: 14,
                       ),
@@ -66,11 +64,12 @@ class _AccountScreenState extends State<AccountScreen> {
                           ),
                           child: Row(
                             children: [
-                              CircleAvatar(
+                              const CircleAvatar(
                                 backgroundColor: Colors.white,
                                 child: Icon(
-                                    Icons.account_balance_wallet_outlined,
-                                    color: Colors.blueAccent),
+                                  Icons.account_balance_wallet_outlined,
+                                  color: Colors.blueAccent,
+                                ),
                               ),
                               const SizedBox(width: 16),
                               Column(
@@ -136,11 +135,15 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               ),
             );
-            }else{
-              return Center(child: Text('Unknown Error'),);
-            }
-          },
-        ),
+          } else {
+            return const Center(
+              child: Text(
+                'Unknown Error',
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+          }
+        },
       ),
     );
   }

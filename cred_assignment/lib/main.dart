@@ -1,5 +1,5 @@
 import 'package:cred_assignment/blocs/api_data_bloc/api_data_bloc.dart';
-import 'package:cred_assignment/screens/persistant_bottom_sheet.dart';
+import 'package:cred_assignment/screens/home_screen.dart';
 import 'package:cred_assignment/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +19,7 @@ class PersistentBottomSheets extends StatelessWidget {
         ..fetchTestMintData(), // Ensures the API data is fetched on startup
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: PersistentBottomSheetScreen(),
+        home: HomeScreen(),
       ),
     );
   }
